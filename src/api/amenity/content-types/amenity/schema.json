@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "amenities",
+  "info": {
+    "singularName": "amenity",
+    "pluralName": "amenities",
+    "displayName": "Amenity"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "stays": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::stay.stay",
+      "mappedBy": "amenities"
+    }
+  }
+}

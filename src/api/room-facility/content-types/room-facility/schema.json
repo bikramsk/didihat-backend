@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "room_facilities",
+  "info": {
+    "singularName": "room-facility",
+    "pluralName": "room-facilities",
+    "displayName": "Room-facility"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "stays": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::stay.stay",
+      "mappedBy": "room_facilities"
+    }
+  }
+}

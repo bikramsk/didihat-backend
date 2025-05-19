@@ -1,0 +1,83 @@
+{
+  "kind": "collectionType",
+  "collectionName": "stays",
+  "info": {
+    "singularName": "stay",
+    "pluralName": "stays",
+    "displayName": "Stay",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "location": {
+      "type": "string",
+      "required": true
+    },
+    "rating": {
+      "type": "float",
+      "max": 5,
+      "min": 1,
+      "required": true
+    },
+    "reviews": {
+      "type": "integer",
+      "min": 0,
+      "required": true
+    },
+    "price": {
+      "type": "string",
+      "required": true
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "type": {
+      "type": "string",
+      "required": true
+    },
+    "propertyRating": {
+      "type": "integer",
+      "max": 5,
+      "min": 1,
+      "required": true
+    },
+    "amenities": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::amenity.amenity",
+      "inversedBy": "stays"
+    },
+    "meal_options": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::meal-option.meal-option",
+      "inversedBy": "stays"
+    },
+    "room_facilities": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::room-facility.room-facility",
+      "inversedBy": "stays"
+    },
+    "description": {
+      "type": "text"
+    },
+    "activities": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::activity.activity",
+      "inversedBy": "stays"
+    }
+  }
+}

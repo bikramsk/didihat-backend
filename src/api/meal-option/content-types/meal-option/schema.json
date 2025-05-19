@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "meal_options",
+  "info": {
+    "singularName": "meal-option",
+    "pluralName": "meal-options",
+    "displayName": "Meal-option"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "stays": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::stay.stay",
+      "mappedBy": "meal_options"
+    }
+  }
+}
