@@ -4,7 +4,8 @@
   "info": {
     "singularName": "amenity",
     "pluralName": "amenities",
-    "displayName": "Amenity"
+    "displayName": "Amenity",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -18,6 +19,13 @@
       "relation": "manyToMany",
       "target": "api::stay.stay",
       "mappedBy": "amenities"
+    },
+    "icon": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }

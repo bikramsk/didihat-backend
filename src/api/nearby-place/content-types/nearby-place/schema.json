@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "nearby_places",
+  "info": {
+    "singularName": "nearby-place",
+    "pluralName": "nearby-places",
+    "displayName": "Nearby Place",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "Name": {
+      "type": "string",
+      "required": true
+    },
+    "Type": {
+      "type": "enumeration",
+      "enum": [
+        "restaurant",
+        "transport",
+        "nature",
+        "airport"
+      ],
+      "required": true
+    },
+    "Description": {
+      "type": "text"
+    },
+    "Distance": {
+      "type": "decimal",
+      "required": true
+    },
+    "WalkingTime": {
+      "type": "string"
+    },
+    "stay": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::stay.stay"
+    }
+  }
+}

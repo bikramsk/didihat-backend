@@ -78,6 +78,47 @@
       "relation": "manyToMany",
       "target": "api::activity.activity",
       "inversedBy": "stays"
+    },
+    "stayimages": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "maxGuests": {
+      "type": "integer",
+      "required": true
+    },
+    "bedrooms": {
+      "type": "integer",
+      "required": true
+    },
+    "bathrooms": {
+      "type": "integer",
+      "required": true
+    },
+    "room_types": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::room-type.room-type",
+      "inversedBy": "stays"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name"
+    },
+    "house_rule": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::house-rule.house-rule"
+    },
+    "related_faq": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::faq.faq",
+      "mappedBy": "related_stay"
     }
   }
 }

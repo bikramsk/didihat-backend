@@ -1,0 +1,51 @@
+{
+  "kind": "collectionType",
+  "collectionName": "room_types",
+  "info": {
+    "singularName": "room-type",
+    "pluralName": "room-types",
+    "displayName": "roomType",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "Name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "Price": {
+      "type": "decimal",
+      "required": true
+    },
+    "Description": {
+      "type": "text",
+      "required": true
+    },
+    "MaxGuests": {
+      "type": "integer",
+      "required": true,
+      "min": 1
+    },
+    "BedConfiguration": {
+      "type": "string",
+      "required": true
+    },
+    "Image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "stays": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::stay.stay",
+      "mappedBy": "room_types"
+    }
+  }
+}

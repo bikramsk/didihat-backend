@@ -430,6 +430,7 @@ export interface ApiActivityActivity extends Struct.CollectionTypeSchema {
 export interface ApiAmenityAmenity extends Struct.CollectionTypeSchema {
   collectionName: 'amenities';
   info: {
+    description: '';
     displayName: 'Amenity';
     pluralName: 'amenities';
     singularName: 'amenity';
@@ -441,6 +442,7 @@ export interface ApiAmenityAmenity extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    icon: Schema.Attribute.Media<'images'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -450,6 +452,34 @@ export interface ApiAmenityAmenity extends Struct.CollectionTypeSchema {
     name: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     stays: Schema.Attribute.Relation<'manyToMany', 'api::stay.stay'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiFaqFaq extends Struct.CollectionTypeSchema {
+  collectionName: 'faqs';
+  info: {
+    description: '';
+    displayName: 'Faq';
+    pluralName: 'faqs';
+    singularName: 'faq';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    answer: Schema.Attribute.Text & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::faq.faq'> &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    question: Schema.Attribute.String & Schema.Attribute.Required;
+    related_stay: Schema.Attribute.Relation<'manyToOne', 'api::stay.stay'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -488,6 +518,44 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiHouseRuleHouseRule extends Struct.CollectionTypeSchema {
+  collectionName: 'house_rules';
+  info: {
+    description: '';
+    displayName: 'House Rule';
+    pluralName: 'house-rules';
+    singularName: 'house-rule';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    ageRestriction: Schema.Attribute.String;
+    bedPolicy: Schema.Attribute.Blocks;
+    cancellationPolicy: Schema.Attribute.Blocks & Schema.Attribute.Required;
+    checkInTime: Schema.Attribute.String & Schema.Attribute.Required;
+    checkOutTime: Schema.Attribute.String & Schema.Attribute.Required;
+    childrenPolicy: Schema.Attribute.Blocks & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    eventsPolicy: Schema.Attribute.String & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::house-rule.house-rule'
+    > &
+      Schema.Attribute.Private;
+    petsPolicy: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    quietHours: Schema.Attribute.String;
+    stay: Schema.Attribute.Relation<'oneToOne', 'api::stay.stay'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiMealOptionMealOption extends Struct.CollectionTypeSchema {
   collectionName: 'meal_options';
   info: {
@@ -514,6 +582,43 @@ export interface ApiMealOptionMealOption extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+  };
+}
+
+export interface ApiNearbyPlaceNearbyPlace extends Struct.CollectionTypeSchema {
+  collectionName: 'nearby_places';
+  info: {
+    description: '';
+    displayName: 'Nearby Place';
+    pluralName: 'nearby-places';
+    singularName: 'nearby-place';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Description: Schema.Attribute.Text;
+    Distance: Schema.Attribute.Decimal & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::nearby-place.nearby-place'
+    > &
+      Schema.Attribute.Private;
+    Name: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    stay: Schema.Attribute.Relation<'oneToOne', 'api::stay.stay'>;
+    Type: Schema.Attribute.Enumeration<
+      ['restaurant', 'transport', 'nature', 'airport']
+    > &
+      Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    WalkingTime: Schema.Attribute.String;
   };
 }
 
@@ -547,6 +652,50 @@ export interface ApiRoomFacilityRoomFacility
   };
 }
 
+export interface ApiRoomTypeRoomType extends Struct.CollectionTypeSchema {
+  collectionName: 'room_types';
+  info: {
+    description: '';
+    displayName: 'roomType';
+    pluralName: 'room-types';
+    singularName: 'room-type';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    BedConfiguration: Schema.Attribute.String & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Description: Schema.Attribute.Text & Schema.Attribute.Required;
+    Image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::room-type.room-type'
+    > &
+      Schema.Attribute.Private;
+    MaxGuests: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      >;
+    Name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    Price: Schema.Attribute.Decimal & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    stays: Schema.Attribute.Relation<'manyToMany', 'api::stay.stay'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiStayStay extends Struct.CollectionTypeSchema {
   collectionName: 'stays';
   info: {
@@ -564,15 +713,22 @@ export interface ApiStayStay extends Struct.CollectionTypeSchema {
       'api::activity.activity'
     >;
     amenities: Schema.Attribute.Relation<'manyToMany', 'api::amenity.amenity'>;
+    bathrooms: Schema.Attribute.Integer & Schema.Attribute.Required;
+    bedrooms: Schema.Attribute.Integer & Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     description: Schema.Attribute.Text;
+    house_rule: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::house-rule.house-rule'
+    >;
     image: Schema.Attribute.Media<'images'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::stay.stay'> &
       Schema.Attribute.Private;
     location: Schema.Attribute.String & Schema.Attribute.Required;
+    maxGuests: Schema.Attribute.Integer & Schema.Attribute.Required;
     meal_options: Schema.Attribute.Relation<
       'manyToMany',
       'api::meal-option.meal-option'
@@ -598,6 +754,7 @@ export interface ApiStayStay extends Struct.CollectionTypeSchema {
         },
         number
       >;
+    related_faq: Schema.Attribute.Relation<'oneToMany', 'api::faq.faq'>;
     reviews: Schema.Attribute.Integer &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMax<
@@ -610,6 +767,12 @@ export interface ApiStayStay extends Struct.CollectionTypeSchema {
       'manyToMany',
       'api::room-facility.room-facility'
     >;
+    room_types: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::room-type.room-type'
+    >;
+    slug: Schema.Attribute.UID<'name'>;
+    stayimages: Schema.Attribute.Media<'images', true>;
     type: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -1129,9 +1292,13 @@ declare module '@strapi/strapi' {
       'api::about.about': ApiAboutAbout;
       'api::activity.activity': ApiActivityActivity;
       'api::amenity.amenity': ApiAmenityAmenity;
+      'api::faq.faq': ApiFaqFaq;
       'api::global.global': ApiGlobalGlobal;
+      'api::house-rule.house-rule': ApiHouseRuleHouseRule;
       'api::meal-option.meal-option': ApiMealOptionMealOption;
+      'api::nearby-place.nearby-place': ApiNearbyPlaceNearbyPlace;
       'api::room-facility.room-facility': ApiRoomFacilityRoomFacility;
+      'api::room-type.room-type': ApiRoomTypeRoomType;
       'api::stay.stay': ApiStayStay;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

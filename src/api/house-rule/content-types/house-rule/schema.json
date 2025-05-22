@@ -1,0 +1,54 @@
+{
+  "kind": "collectionType",
+  "collectionName": "house_rules",
+  "info": {
+    "singularName": "house-rule",
+    "pluralName": "house-rules",
+    "displayName": "House Rule",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "checkInTime": {
+      "type": "string",
+      "required": true
+    },
+    "checkOutTime": {
+      "type": "string",
+      "required": true
+    },
+    "cancellationPolicy": {
+      "type": "blocks",
+      "required": true
+    },
+    "childrenPolicy": {
+      "type": "blocks",
+      "required": true
+    },
+    "bedPolicy": {
+      "type": "blocks",
+      "required": false
+    },
+    "ageRestriction": {
+      "type": "string"
+    },
+    "petsPolicy": {
+      "type": "string",
+      "required": true
+    },
+    "eventsPolicy": {
+      "type": "string",
+      "required": true
+    },
+    "quietHours": {
+      "type": "string"
+    },
+    "stay": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::stay.stay"
+    }
+  }
+}
