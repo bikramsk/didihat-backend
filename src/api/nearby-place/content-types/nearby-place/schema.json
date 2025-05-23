@@ -19,6 +19,7 @@
       "type": "enumeration",
       "enum": [
         "restaurant",
+        "religious place",
         "transport",
         "nature",
         "airport"

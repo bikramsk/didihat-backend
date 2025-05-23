@@ -612,7 +612,7 @@ export interface ApiNearbyPlaceNearbyPlace extends Struct.CollectionTypeSchema {
     publishedAt: Schema.Attribute.DateTime;
     stay: Schema.Attribute.Relation<'oneToOne', 'api::stay.stay'>;
     Type: Schema.Attribute.Enumeration<
-      ['restaurant', 'transport', 'nature', 'airport']
+      ['restaurant', 'religious place', 'transport', 'nature', 'airport']
     > &
       Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
@@ -684,9 +684,7 @@ export interface ApiRoomTypeRoomType extends Struct.CollectionTypeSchema {
         },
         number
       >;
-    Name: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.Unique;
+    Name: Schema.Attribute.String & Schema.Attribute.Required;
     Price: Schema.Attribute.Decimal & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     stays: Schema.Attribute.Relation<'manyToMany', 'api::stay.stay'>;
