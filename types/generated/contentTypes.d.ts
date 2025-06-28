@@ -622,6 +622,47 @@ export interface ApiNearbyPlaceNearbyPlace extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiReviewReview extends Struct.CollectionTypeSchema {
+  collectionName: 'reviews';
+  info: {
+    description: '';
+    displayName: 'Review';
+    pluralName: 'reviews';
+    singularName: 'review';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    comment: Schema.Attribute.Text & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    date: Schema.Attribute.Date & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::review.review'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    rating: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 5;
+          min: 1;
+        },
+        number
+      >;
+    reviewer_name: Schema.Attribute.String & Schema.Attribute.Required;
+    stay: Schema.Attribute.Relation<'oneToOne', 'api::stay.stay'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiRoomFacilityRoomFacility
   extends Struct.CollectionTypeSchema {
   collectionName: 'room_facilities';
@@ -1295,6 +1336,7 @@ declare module '@strapi/strapi' {
       'api::house-rule.house-rule': ApiHouseRuleHouseRule;
       'api::meal-option.meal-option': ApiMealOptionMealOption;
       'api::nearby-place.nearby-place': ApiNearbyPlaceNearbyPlace;
+      'api::review.review': ApiReviewReview;
       'api::room-facility.room-facility': ApiRoomFacilityRoomFacility;
       'api::room-type.room-type': ApiRoomTypeRoomType;
       'api::stay.stay': ApiStayStay;
