@@ -12,14 +12,17 @@ module.exports = [
           upgradeInsecureRequests: null,
         },
       },
-      cors: {
-        enabled: true,
-        headers: '*',
-        origin: ['http://localhost:5173'] 
-      }
     },
   },
-  'strapi::cors',
+  {
+    name: 'strapi::cors',
+    config: {
+      enabled: true,
+      origin: ['http://localhost:5173', 'https://demo.didihat.com'],
+      headers: ['Content-Type', 'Authorization', 'Origin', 'Accept'],
+      methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    },
+  },
   'strapi::poweredBy',
   'strapi::logger',
   'strapi::query',
@@ -29,16 +32,3 @@ module.exports = [
   'strapi::public',
 ];
 
-
-// module.exports = [
-//   'strapi::logger',
-//   'strapi::errors',
-//   'strapi::security',
-//   'strapi::cors',
-//   'strapi::poweredBy',
-//   'strapi::query',
-//   'strapi::body',
-//   'strapi::session',
-//   'strapi::favicon',
-//   'strapi::public',
-// ];
