@@ -458,11 +458,262 @@ export interface ApiAmenityAmenity extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiAttractionFaqAttractionFaq
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'attraction_faqs';
+  info: {
+    displayName: 'AttractionFAQ';
+    pluralName: 'attraction-faqs';
+    singularName: 'attraction-faq';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    answer: Schema.Attribute.Text & Schema.Attribute.Required;
+    attraction: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::attraction.attraction'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::attraction-faq.attraction-faq'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    question: Schema.Attribute.String & Schema.Attribute.Required;
+    tour_packages: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::tour-package.tour-package'
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiAttractionAttraction extends Struct.CollectionTypeSchema {
+  collectionName: 'attractions';
+  info: {
+    description: '';
+    displayName: 'Attraction';
+    pluralName: 'attractions';
+    singularName: 'attraction';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    additionalInfo: Schema.Attribute.JSON;
+    adultPrice: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    attraction_faqs: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::attraction-faq.attraction-faq'
+    >;
+    availability: Schema.Attribute.String;
+    availableTicketTypes: Schema.Attribute.JSON &
+      Schema.Attribute.DefaultTo<{
+        adult: true;
+        child: true;
+        infant: false;
+        senior: true;
+      }>;
+    childPrice: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    duration: Schema.Attribute.String;
+    freeCancel: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    gallery: Schema.Attribute.Media<'images', true>;
+    image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    included: Schema.Attribute.JSON;
+    infantPrice: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    languages: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::language.language'
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::attraction.attraction'
+    > &
+      Schema.Attribute.Private;
+    location: Schema.Attribute.String & Schema.Attribute.Required;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    notIncluded: Schema.Attribute.JSON;
+    originalPrice: Schema.Attribute.Decimal;
+    popularFilters: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::popular-filter.popular-filter'
+    >;
+    price: Schema.Attribute.Decimal;
+    publishedAt: Schema.Attribute.DateTime;
+    rating: Schema.Attribute.Decimal &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 5;
+          min: 0;
+        },
+        number
+      >;
+    reviews: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      >;
+    seniorPrice: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    slug: Schema.Attribute.UID<'name'>;
+    ticketType: Schema.Attribute.Enumeration<['simple', 'detailed']>;
+    timeSlots: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::time-slot.time-slot'
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiBookingBooking extends Struct.CollectionTypeSchema {
+  collectionName: 'bookings';
+  info: {
+    description: 'User bookings and orders';
+    displayName: 'Booking';
+    pluralName: 'bookings';
+    singularName: 'booking';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    bookingDate: Schema.Attribute.DateTime & Schema.Attribute.Required;
+    bookingId: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    bookingItems: Schema.Attribute.JSON & Schema.Attribute.Required;
+    bookingStatus: Schema.Attribute.Enumeration<
+      ['confirmed', 'pending', 'cancelled', 'completed']
+    > &
+      Schema.Attribute.DefaultTo<'confirmed'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    customerEmail: Schema.Attribute.Email & Schema.Attribute.Required;
+    customerName: Schema.Attribute.String & Schema.Attribute.Required;
+    emailSent: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    itemCount: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<0>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::booking.booking'
+    > &
+      Schema.Attribute.Private;
+    notes: Schema.Attribute.Text;
+    paymentMethod: Schema.Attribute.String;
+    paymentStatus: Schema.Attribute.Enumeration<
+      ['pending', 'completed', 'failed', 'cancelled']
+    > &
+      Schema.Attribute.DefaultTo<'pending'>;
+    publishedAt: Schema.Attribute.DateTime;
+    subtotal: Schema.Attribute.Decimal &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<0>;
+    tax: Schema.Attribute.Decimal &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<0>;
+    total: Schema.Attribute.Decimal &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<0>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
+export interface ApiCarRentalCarRental extends Struct.CollectionTypeSchema {
+  collectionName: 'car_rentals';
+  info: {
+    description: 'Car rentals collection';
+    displayName: 'Car Rental';
+    pluralName: 'car-rentals';
+    singularName: 'car-rental';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    available: Schema.Attribute.String;
+    capacity: Schema.Attribute.Integer;
+    carType: Schema.Attribute.Enumeration<
+      ['Hatchback', 'Sedan', 'SUV', 'Luxury', 'MUV']
+    > &
+      Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    extraKmRate: Schema.Attribute.String;
+    features: Schema.Attribute.JSON;
+    freeCancellation: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
+    freeKms: Schema.Attribute.String;
+    fuelType: Schema.Attribute.Enumeration<['Petrol', 'Diesel', 'CNG']>;
+    image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    included: Schema.Attribute.JSON;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::car-rental.car-rental'
+    > &
+      Schema.Attribute.Private;
+    location: Schema.Attribute.String & Schema.Attribute.Required;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    notIncluded: Schema.Attribute.JSON;
+    originalPrice: Schema.Attribute.Decimal;
+    price: Schema.Attribute.Decimal & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    rating: Schema.Attribute.Decimal &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 5;
+          min: 0;
+        },
+        number
+      >;
+    reviews: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      >;
+    slug: Schema.Attribute.UID<'name'>;
+    transmission: Schema.Attribute.Enumeration<['Manual', 'Automatic']> &
+      Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiFaqFaq extends Struct.CollectionTypeSchema {
   collectionName: 'faqs';
   info: {
-    description: '';
-    displayName: 'Faq';
+    description: 'Frequently Asked Questions';
+    displayName: 'FAQ';
     pluralName: 'faqs';
     singularName: 'faq';
   };
@@ -556,6 +807,45 @@ export interface ApiHouseRuleHouseRule extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiLanguageLanguage extends Struct.CollectionTypeSchema {
+  collectionName: 'languages';
+  info: {
+    displayName: 'Language';
+    pluralName: 'languages';
+    singularName: 'language';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    attractions: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::attraction.attraction'
+    >;
+    code: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::language.language'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    tour_packages: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::tour-package.tour-package'
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiMealOptionMealOption extends Struct.CollectionTypeSchema {
   collectionName: 'meal_options';
   info: {
@@ -619,6 +909,73 @@ export interface ApiNearbyPlaceNearbyPlace extends Struct.CollectionTypeSchema {
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     WalkingTime: Schema.Attribute.String;
+  };
+}
+
+export interface ApiPopularFilterPopularFilter
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'popular_filters';
+  info: {
+    displayName: 'PopularFilter';
+    pluralName: 'popular-filters';
+    singularName: 'popular-filter';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    attractions: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::attraction.attraction'
+    >;
+    code: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::popular-filter.popular-filter'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiReviewReview extends Struct.CollectionTypeSchema {
+  collectionName: 'reviews';
+  info: {
+    displayName: 'review';
+    pluralName: 'reviews';
+    singularName: 'review';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Comment: Schema.Attribute.Text;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::review.review'
+    > &
+      Schema.Attribute.Private;
+    Name: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    Rating: Schema.Attribute.Integer;
+    stay: Schema.Attribute.Relation<'manyToOne', 'api::stay.stay'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
@@ -753,7 +1110,8 @@ export interface ApiStayStay extends Struct.CollectionTypeSchema {
         number
       >;
     related_faq: Schema.Attribute.Relation<'oneToMany', 'api::faq.faq'>;
-    reviews: Schema.Attribute.Integer &
+    reviews: Schema.Attribute.Relation<'oneToMany', 'api::review.review'>;
+    reviews_count: Schema.Attribute.Integer &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMax<
         {
@@ -772,6 +1130,150 @@ export interface ApiStayStay extends Struct.CollectionTypeSchema {
     slug: Schema.Attribute.UID<'name'>;
     stayimages: Schema.Attribute.Media<'images', true>;
     type: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiTimeSlotTimeSlot extends Struct.CollectionTypeSchema {
+  collectionName: 'time_slots';
+  info: {
+    displayName: 'TimeSlot';
+    pluralName: 'time-slots';
+    singularName: 'time-slot';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    attractions: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::attraction.attraction'
+    >;
+    availableTimes: Schema.Attribute.JSON &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<['09:00', '10:00', '11:00']>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::time-slot.time-slot'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    tour_packages: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::tour-package.tour-package'
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiTourPackageTourPackage extends Struct.CollectionTypeSchema {
+  collectionName: 'tour_packages';
+  info: {
+    description: 'Tour packages collection';
+    displayName: 'Tour Package';
+    pluralName: 'tour-packages';
+    singularName: 'tour-package';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    additionalInfo: Schema.Attribute.JSON;
+    adultPrice: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    attraction_faqs: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::attraction-faq.attraction-faq'
+    >;
+    availability: Schema.Attribute.String;
+    availableTicketTypes: Schema.Attribute.JSON &
+      Schema.Attribute.DefaultTo<{
+        adult: true;
+        child: true;
+        infant: false;
+        senior: true;
+      }>;
+    childPrice: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    duration: Schema.Attribute.String;
+    featured: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    freeCancel: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    gallery: Schema.Attribute.Media<'images', true>;
+    image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    included: Schema.Attribute.JSON;
+    infantPrice: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    itinerary: Schema.Attribute.JSON &
+      Schema.Attribute.DefaultTo<
+        [
+          {
+            day: 1;
+            details: 'Details for day 1';
+            title: 'Day 1 Title';
+          },
+          {
+            day: 2;
+            details: 'Details for day 2';
+            title: 'Day 2 Title';
+          },
+        ]
+      >;
+    languages: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::language.language'
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::tour-package.tour-package'
+    > &
+      Schema.Attribute.Private;
+    location: Schema.Attribute.String & Schema.Attribute.Required;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    notIncluded: Schema.Attribute.JSON;
+    originalPrice: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<0>;
+    price: Schema.Attribute.Decimal &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<0>;
+    privateTour: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    publishedAt: Schema.Attribute.DateTime;
+    rating: Schema.Attribute.Decimal &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 5;
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<0>;
+    reviews: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<0>;
+    seniorPrice: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    slug: Schema.Attribute.UID<'name'>;
+    ticketType: Schema.Attribute.Enumeration<['simple', 'detailed']>;
+    timeSlots: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::time-slot.time-slot'
+    >;
+    type: Schema.Attribute.Enumeration<
+      ['adventure', 'cultural', 'pilgrimage', 'wildlife']
+    >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -865,6 +1367,44 @@ export interface PluginContentReleasesReleaseAction
     >;
     type: Schema.Attribute.Enumeration<['publish', 'unpublish']> &
       Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface PluginExportImportKkmExportImportConfig
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'export_import_kkm_configs';
+  info: {
+    displayName: 'Export Import Config';
+    pluralName: 'export-import-configs';
+    singularName: 'export-import-config';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::export-import-kkm.export-import-config'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    selectedExportCollections: Schema.Attribute.JSON;
+    selectedImportCollections: Schema.Attribute.JSON;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1290,16 +1830,26 @@ declare module '@strapi/strapi' {
       'api::about.about': ApiAboutAbout;
       'api::activity.activity': ApiActivityActivity;
       'api::amenity.amenity': ApiAmenityAmenity;
+      'api::attraction-faq.attraction-faq': ApiAttractionFaqAttractionFaq;
+      'api::attraction.attraction': ApiAttractionAttraction;
+      'api::booking.booking': ApiBookingBooking;
+      'api::car-rental.car-rental': ApiCarRentalCarRental;
       'api::faq.faq': ApiFaqFaq;
       'api::global.global': ApiGlobalGlobal;
       'api::house-rule.house-rule': ApiHouseRuleHouseRule;
+      'api::language.language': ApiLanguageLanguage;
       'api::meal-option.meal-option': ApiMealOptionMealOption;
       'api::nearby-place.nearby-place': ApiNearbyPlaceNearbyPlace;
+      'api::popular-filter.popular-filter': ApiPopularFilterPopularFilter;
+      'api::review.review': ApiReviewReview;
       'api::room-facility.room-facility': ApiRoomFacilityRoomFacility;
       'api::room-type.room-type': ApiRoomTypeRoomType;
       'api::stay.stay': ApiStayStay;
+      'api::time-slot.time-slot': ApiTimeSlotTimeSlot;
+      'api::tour-package.tour-package': ApiTourPackageTourPackage;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
+      'plugin::export-import-kkm.export-import-config': PluginExportImportKkmExportImportConfig;
       'plugin::i18n.locale': PluginI18NLocale;
       'plugin::review-workflows.workflow': PluginReviewWorkflowsWorkflow;
       'plugin::review-workflows.workflow-stage': PluginReviewWorkflowsWorkflowStage;

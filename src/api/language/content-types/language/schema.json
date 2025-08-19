@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "languages",
+  "info": {
+    "singularName": "language",
+    "pluralName": "languages",
+    "displayName": "Language"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "code": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "attractions": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::attraction.attraction",
+      "mappedBy": "languages"
+    },
+    "tour_packages": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::tour-package.tour-package",
+      "mappedBy": "languages"
+    }
+  }
+}

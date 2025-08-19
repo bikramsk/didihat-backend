@@ -1,0 +1,168 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tour_packages",
+  "info": {
+    "singularName": "tour-package",
+    "pluralName": "tour-packages",
+    "displayName": "Tour Package",
+    "description": "Tour packages collection"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "location": {
+      "type": "string",
+      "required": true
+    },
+    "duration": {
+      "type": "string",
+      "required": false
+    },
+    "price": {
+      "type": "decimal",
+      "required": true,
+      "default": 0
+    },
+    "originalPrice": {
+      "type": "decimal",
+      "default": 0
+    },
+    "rating": {
+      "type": "decimal",
+      "default": 0,
+      "max": 5,
+      "min": 0
+    },
+    "reviews": {
+      "type": "integer",
+      "default": 0,
+      "min": 0
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "gallery": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "availability": {
+      "type": "string"
+    },
+    "freeCancel": {
+      "type": "boolean",
+      "default": false
+    },
+    "privateTour": {
+      "type": "boolean",
+      "default": false
+    },
+    "languages": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::language.language",
+      "inversedBy": "tour_packages"
+    },
+    "included": {
+      "type": "json",
+      "required": false
+    },
+    "notIncluded": {
+      "type": "json",
+      "required": false
+    },
+    "additionalInfo": {
+      "type": "json",
+      "required": false
+    },
+    "timeSlots": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::time-slot.time-slot",
+      "inversedBy": "tour_packages"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "adventure",
+        "cultural",
+        "pilgrimage",
+        "wildlife"
+      ],
+      "required": false
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name"
+    },
+    "ticketType": {
+      "type": "enumeration",
+      "enum": [
+        "simple",
+        "detailed"
+      ]
+    },
+    "adultPrice": {
+      "type": "integer",
+      "default": 0
+    },
+    "childPrice": {
+      "type": "integer",
+      "default": 0
+    },
+    "seniorPrice": {
+      "default": 0,
+      "type": "integer"
+    },
+    "infantPrice": {
+      "type": "integer",
+      "default": 0
+    },
+    "availableTicketTypes": {
+      "type": "json",
+      "default": {
+        "adult": true,
+        "child": true,
+        "senior": true,
+        "infant": false
+      }
+    },
+    "attraction_faqs": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::attraction-faq.attraction-faq",
+      "inversedBy": "tour_packages"
+    },
+    "itinerary": {
+      "type": "json",
+      "required": false,
+      "description": "Optional day-wise itinerary for long-duration tours. Array of objects: [{day: 1, title: '', details: ''}]",
+      "default": [
+        { "day": 1, "title": "Day 1 Title", "details": "Details for day 1" },
+        { "day": 2, "title": "Day 2 Title", "details": "Details for day 2" }
+      ]
+    }
+  }
+}

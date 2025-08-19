@@ -25,7 +25,7 @@
       "min": 1,
       "required": true
     },
-    "reviews": {
+    "reviews_count": {
       "type": "integer",
       "min": 0,
       "required": true
@@ -119,6 +119,12 @@
       "relation": "oneToMany",
       "target": "api::faq.faq",
       "mappedBy": "related_stay"
+    },
+    "reviews": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::review.review",
+      "mappedBy": "stay"
     }
   }
 }

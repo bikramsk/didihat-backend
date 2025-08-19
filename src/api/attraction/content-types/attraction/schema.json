@@ -1,0 +1,142 @@
+{
+  "kind": "collectionType",
+  "collectionName": "attractions",
+  "info": {
+    "singularName": "attraction",
+    "pluralName": "attractions",
+    "displayName": "Attraction",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "location": {
+      "type": "string",
+      "required": true
+    },
+    "duration": {
+      "type": "string",
+      "required": false
+    },
+    "price": {
+      "type": "decimal",
+      "required": false
+    },
+    "originalPrice": {
+      "type": "decimal"
+    },
+    "rating": {
+      "type": "decimal",
+      "max": 5,
+      "min": 0
+    },
+    "reviews": {
+      "type": "integer",
+      "min": 0
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "gallery": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "availability": {
+      "type": "string"
+    },
+    "freeCancel": {
+      "type": "boolean",
+      "default": false
+    },
+    "languages": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::language.language",
+      "inversedBy": "attractions"
+    },
+    "additionalInfo": {
+      "type": "json",
+      "required": false
+    },
+    "timeSlots": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::time-slot.time-slot",
+      "inversedBy": "attractions"
+    },
+    "popularFilters": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::popular-filter.popular-filter",
+      "inversedBy": "attractions"
+    },
+    "attraction_faqs": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::attraction-faq.attraction-faq",
+      "mappedBy": "attraction"
+    },
+    "included": {
+      "type": "json",
+      "required": false
+    },
+    "notIncluded": {
+      "type": "json",
+      "required": false
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name"
+    },
+    "ticketType": {
+      "type": "enumeration",
+      "enum": [
+        "simple",
+        "detailed"
+      ]
+    },
+    "adultPrice": {
+      "type": "integer",
+      "default": 0
+    },
+    "childPrice": {
+      "type": "integer",
+      "default": 0
+    },
+    "seniorPrice": {
+      "default": 0,
+      "type": "integer"
+    },
+    "infantPrice": {
+      "type": "integer",
+      "default": 0
+    },
+    "availableTicketTypes": {
+      "type": "json",
+      "default": {
+        "adult": true,
+        "child": true,
+        "senior": true,
+        "infant": false
+      }
+    }
+  }
+}

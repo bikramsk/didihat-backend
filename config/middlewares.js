@@ -15,7 +15,7 @@ module.exports = [
       cors: {
         enabled: true,
         headers: '*',
-        origin: ['http://localhost:5173'] 
+        origin: ['http://localhost:5173', 'http://localhost:5174']
       }
     },
   },
