@@ -1,0 +1,110 @@
+{
+  "kind": "collectionType",
+  "collectionName": "car_rentals",
+  "info": {
+    "singularName": "car-rental",
+    "pluralName": "car-rentals",
+    "displayName": "Car Rental",
+    "description": "Car rentals collection"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "price": {
+      "type": "decimal",
+      "required": true
+    },
+    "originalPrice": {
+      "type": "decimal"
+    },
+    "location": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "features": {
+      "type": "json",
+      "required": false
+    },
+    "rating": {
+      "type": "decimal",
+      "max": 5,
+      "min": 0
+    },
+    "reviews": {
+      "type": "integer",
+      "min": 0
+    },
+    "freeKms": {
+      "type": "string"
+    },
+    "extraKmRate": {
+      "type": "string"
+    },
+    "freeCancellation": {
+      "type": "boolean",
+      "default": false
+    },
+    "available": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name"
+    },
+    "carType": {
+      "type": "enumeration",
+      "enum": [
+        "Hatchback",
+        "Sedan",
+        "SUV",
+        "Luxury",
+        "MUV"
+      ],
+      "required": true
+    },
+    "transmission": {
+      "type": "enumeration",
+      "enum": [
+        "Manual",
+        "Automatic"
+      ],
+      "required": true
+    },
+    "notIncluded": {
+      "type": "json",
+      "required": false
+    },
+    "included": {
+      "type": "json",
+      "required": false
+    },
+    "capacity": {
+      "type": "integer"
+    },
+    "fuelType": {
+      "type": "enumeration",
+      "enum": [
+        "Petrol",
+        "Diesel",
+        "CNG"
+      ]
+    }
+  }
+}

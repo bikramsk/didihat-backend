@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "popular_filters",
+  "info": {
+    "singularName": "popular-filter",
+    "pluralName": "popular-filters",
+    "displayName": "PopularFilter"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "code": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "attractions": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::attraction.attraction",
+      "mappedBy": "popularFilters"
+    }
+  }
+}

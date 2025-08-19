@@ -1,0 +1,34 @@
+{
+  "kind": "collectionType",
+  "collectionName": "attraction_faqs",
+  "info": {
+    "singularName": "attraction-faq",
+    "pluralName": "attraction-faqs",
+    "displayName": "AttractionFAQ"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "question": {
+      "type": "string",
+      "required": true
+    },
+    "answer": {
+      "type": "text",
+      "required": true
+    },
+    "attraction": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::attraction.attraction",
+      "inversedBy": "attraction_faqs"
+    },
+    "tour_packages": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::tour-package.tour-package",
+      "mappedBy": "attraction_faqs"
+    }
+  }
+}

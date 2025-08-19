@@ -4,6 +4,7 @@
   "info": {
     "singularName": "review",
     "pluralName": "reviews",
+<<<<<<< HEAD
     "displayName": "Review",
     "description": ""
   },
@@ -33,6 +34,28 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::stay.stay"
+=======
+    "displayName": "review"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "Name": {
+      "type": "string"
+    },
+    "Rating": {
+      "type": "integer"
+    },
+    "Comment": {
+      "type": "text"
+    },
+    "stay": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::stay.stay",
+      "inversedBy": "reviews"
+>>>>>>> development
     }
   }
 }

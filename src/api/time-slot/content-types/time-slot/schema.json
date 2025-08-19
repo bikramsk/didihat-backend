@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "time_slots",
+  "info": {
+    "singularName": "time-slot",
+    "pluralName": "time-slots",
+    "displayName": "TimeSlot"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "availableTimes": {
+      "type": "json",
+      "required": true,
+      "default": [
+        "09:00",
+        "10:00",
+        "11:00"
+      ]
+    },
+    "attractions": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::attraction.attraction",
+      "mappedBy": "timeSlots"
+    },
+    "tour_packages": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::tour-package.tour-package",
+      "mappedBy": "timeSlots"
+    }
+  }
+}
