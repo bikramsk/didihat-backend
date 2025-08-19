@@ -912,43 +912,6 @@ export interface ApiNearbyPlaceNearbyPlace extends Struct.CollectionTypeSchema {
   };
 }
 
-<<<<<<< HEAD
-export interface ApiReviewReview extends Struct.CollectionTypeSchema {
-  collectionName: 'reviews';
-  info: {
-    description: '';
-    displayName: 'Review';
-    pluralName: 'reviews';
-    singularName: 'review';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    comment: Schema.Attribute.Text & Schema.Attribute.Required;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    date: Schema.Attribute.Date & Schema.Attribute.Required;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::review.review'
-    > &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    rating: Schema.Attribute.Integer &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 5;
-          min: 1;
-        },
-        number
-      >;
-    reviewer_name: Schema.Attribute.String & Schema.Attribute.Required;
-    stay: Schema.Attribute.Relation<'oneToOne', 'api::stay.stay'>;
-=======
 export interface ApiPopularFilterPopularFilter
   extends Struct.CollectionTypeSchema {
   collectionName: 'popular_filters';
@@ -1010,7 +973,6 @@ export interface ApiReviewReview extends Struct.CollectionTypeSchema {
     publishedAt: Schema.Attribute.DateTime;
     Rating: Schema.Attribute.Integer;
     stay: Schema.Attribute.Relation<'manyToOne', 'api::stay.stay'>;
->>>>>>> development
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1878,10 +1840,7 @@ declare module '@strapi/strapi' {
       'api::language.language': ApiLanguageLanguage;
       'api::meal-option.meal-option': ApiMealOptionMealOption;
       'api::nearby-place.nearby-place': ApiNearbyPlaceNearbyPlace;
-<<<<<<< HEAD
-=======
       'api::popular-filter.popular-filter': ApiPopularFilterPopularFilter;
->>>>>>> development
       'api::review.review': ApiReviewReview;
       'api::room-facility.room-facility': ApiRoomFacilityRoomFacility;
       'api::room-type.room-type': ApiRoomTypeRoomType;

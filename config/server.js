@@ -1,16 +1,21 @@
+
 module.exports = ({ env }) => ({
-  host: env('HOST', '0.0.0.0'),
+  url: env('NODE_ENV') === 'development' 
+    ? 'http://localhost:1350'
+    : 'https://admin.didihat.com',
+
+  host: '0.0.0.0',
   port: env.int('PORT', 1350),
-  url: env('PUBLIC_URL', 'https://api.didihat.com'),
+
   app: {
     keys: env.array('APP_KEYS'),
   },
-  webhooks: {
-    populateRelations: env.bool('WEBHOOKS_POPULATE_RELATIONS', false),
+
+  admin: {
+    url: '/admin',
+    serveAdminPanel: true,
   },
 });
-
-
 
 
 // module.exports = ({ env }) => ({
@@ -23,7 +28,7 @@ module.exports = ({ env }) => ({
 //   webhooks: {
 //     populateRelations: env.bool('WEBHOOKS_POPULATE_RELATIONS', false),
 //   },
-//   // Add this section for CORS
+ 
 //   middleware: {
 //     settings: {
 //       cors: {
@@ -37,3 +42,13 @@ module.exports = ({ env }) => ({
 //   },
 // });
 
+// module.exports = ({ env }) => ({
+//   host: env('HOST', '0.0.0.0'),
+//   port: env.int('PORT', 1337),
+//   app: {
+//     keys: env.array('APP_KEYS'),
+//   },
+//   webhooks: {
+//     populateRelations: env.bool('WEBHOOKS_POPULATE_RELATIONS', false),
+//   },
+// });

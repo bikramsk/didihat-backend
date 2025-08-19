@@ -4,37 +4,6 @@
   "info": {
     "singularName": "review",
     "pluralName": "reviews",
-<<<<<<< HEAD
-    "displayName": "Review",
-    "description": ""
-  },
-  "options": {
-    "draftAndPublish": false
-  },
-  "attributes": {
-    "rating": {
-      "type": "integer",
-      "max": 5,
-      "min": 1,
-      "required": true
-    },
-    "comment": {
-      "type": "text",
-      "required": true
-    },
-    "reviewer_name": {
-      "type": "string",
-      "required": true
-    },
-    "date": {
-      "type": "date",
-      "required": true
-    },
-    "stay": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::stay.stay"
-=======
     "displayName": "review"
   },
   "options": {
@@ -55,7 +24,6 @@
       "relation": "manyToOne",
       "target": "api::stay.stay",
       "inversedBy": "reviews"
->>>>>>> development
     }
   }
 }
