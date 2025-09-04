@@ -40,7 +40,7 @@ jobs:
           ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
             cd ${{ secrets.VPS_BACKEND_DIR }}
             export NODE_ENV=production
-            npm ci # <-- This installs dependencies. If you use yarn, replace with 'yarn install'
+            npm ci 
             npm run build
             pm2 start ecosystem.config.js --only strapi || pm2 restart strapi
             pm2 save
