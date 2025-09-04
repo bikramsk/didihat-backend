@@ -25,13 +25,16 @@ jobs:
             mkdir -p ${{ secrets.VPS_BACKEND_DIR }}
             cd ${{ secrets.VPS_BACKEND_DIR }}
             pm2 stop strapi || true
-            rm -rf * .[^.]* || true
+            # Delete everything except 'public' folder and its contents
+            find . -mindepth 1 ! -path './public' ! -path './public/*' -exec rm -rf {} +
           EOF
+
       - name: Upload code to VPS
         run: |
-          rsync -avz --delete \
+          rsync -avz --delete --exclude='public/' \
             -e "ssh -o StrictHostKeyChecking=no" \
             ./ ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:${{ secrets.VPS_BACKEND_DIR }}
+
       - name: Build & Start Strapi on VPS
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
