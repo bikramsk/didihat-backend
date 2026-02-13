@@ -30,6 +30,10 @@
       "type": "email",
       "required": true
     },
+    "customerPhone": {
+      "type": "string",
+      "required": true
+    },
     "bookingItems": {
       "type": "json",
       "required": true,

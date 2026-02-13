@@ -607,6 +607,7 @@ export interface ApiBookingBooking extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     customerEmail: Schema.Attribute.Email & Schema.Attribute.Required;
     customerName: Schema.Attribute.String & Schema.Attribute.Required;
+    customerPhone: Schema.Attribute.String & Schema.Attribute.Required;
     emailSent: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     itemCount: Schema.Attribute.Integer &
       Schema.Attribute.Required &
