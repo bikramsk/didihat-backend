@@ -14,31 +14,27 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup SSH
-        uses: webfactory/ssh-agent@v0.7.0
+      - name: Deploy backend to VPS
+        uses: appleboy/ssh-action@v1.0.0
         with:
-          ssh-private-key: ${{ secrets.VPS_SSH_KEY }}
-
-      - name: Deploy via SSH
-        run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: 22
+          script: |
             mkdir -p ${{ secrets.VPS_BACKEND_DIR }}
             cd ${{ secrets.VPS_BACKEND_DIR }}
+
             pm2 stop strapi || true
-            rm -rf * .[^.]* || true
-          EOF
-      - name: Upload code to VPS
-        run: |
-          rsync -avz --delete \
-            -e "ssh -o StrictHostKeyChecking=no" \
-            ./ ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:${{ secrets.VPS_BACKEND_DIR }}
-      - name: Build & Start Strapi on VPS
-        run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
-            cd ${{ secrets.VPS_BACKEND_DIR }}
+
+            # clean except public
+            find . -mindepth 1 ! -path './public' ! -path './public/*' -exec rm -rf {} +
+
+            rsync -av --delete --exclude='public/' ./ ${{ secrets.VPS_BACKEND_DIR }}
+
             export NODE_ENV=production
             npm ci
             npm run build
+
             pm2 start ecosystem.config.js --only strapi || pm2 restart strapi
             pm2 save
-          EOF
